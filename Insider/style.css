@@ -1,0 +1,121 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 16px 0;
+}
+
+#game-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.screen.active {
+    display: flex;
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+textarea, input[type="number"], input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    font-size: 16px;
+    text-align: center;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 8px;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.button-group {
+    width: 100%;
+    margin-top: 8px;
+}
+
+button.secondary {
+    background-color: #6c757d;
+}
+button.secondary:hover {
+    background-color: #5a6268;
+}
+
+button.hidden {
+    display: none;
+}
+
+#role-display {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 16px;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+#role-display.hidden {
+    display: none;
+}
+
+#theme-for-player {
+    margin-top: 16px;
+    font-weight: bold;
+    color: #d9534f;
+}
+
+#timer-display {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+#vote-buttons-container {
+    width: 100%;
+}

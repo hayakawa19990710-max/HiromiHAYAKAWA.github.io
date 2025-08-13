@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>インサイダーゲーム</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="game-container">
+        <div id="screen-entry" class="screen active">
+            <h1>インサイダーゲーム</h1>
+            <p>参加者の名前を改行して入力してください。(3人以上)</p>
+            <textarea id="player-names" rows="6" placeholder="山田太郎&#10;鈴木花子&#10;佐藤次郎"></textarea>
+            <p>質問タイムの時間（分）:</p>
+            <input type="number" id="timer-minutes" value="5" min="1">
+            <div class="button-group">
+                <button id="start-common-btn">一般名詞で開始</button>
+                <button id="start-proper-btn">固有名詞で開始</button>
+                <button id="start-original-btn">オリジナルお題で開始</button>
+            </div>
+        </div>
+
+        <div id="screen-original-theme" class="screen">
+            <h2>オリジナルお題</h2>
+            <p>ゲームマスターがお題を入力してください。</p>
+            <input type="text" id="original-theme-input" placeholder="お題を入力">
+            <button id="confirm-original-btn">このお題で開始</button>
+            <button id="back-to-entry-btn" class="secondary">戻る</button>
+        </div>
+
+        <div id="screen-role-check" class="screen">
+            <h2 id="player-check-name"></h2>
+            <p>あなたの役職を確認してください。<br>他の人に見られないように注意！</p>
+            <div id="role-display" class="hidden">
+                <p>あなたの役職は…</p>
+                <h3 id="role-name"></h3>
+                <p id="theme-for-player" class="hidden">お題は<br><span id="theme-text"></span></p>
+            </div>
+            <button id="show-role-btn">役職を見る</button>
+            <button id="next-player-btn" class="hidden">確認しました (次の人へ)</button>
+        </div>
+        
+        <div id="screen-master-check" class="screen">
+            <h2>ゲームマスターの方</h2>
+            <p>お題を確認してください。</p>
+            <h3 id="theme-for-master"></h3>
+            <button id="start-q-time-btn">質問タイムへ進む</button>
+        </div>
+
+        <div id="screen-timer" class="screen">
+            <h2>質問タイム</h2>
+            <div id="timer-display">05:00</div>
+            <button id="start-timer-btn">タイマースタート</button>
+            <button id="finish-early-btn" class="hidden">お題が分かった！ (投票へ)</button>
+        </div>
+        
+        <div id="screen-vote" class="screen">
+            <h2>投票タイム</h2>
+            <p>インサイダーだと思う人を選んでください。</p>
+            <div id="vote-buttons-container"></div>
+        </div>
+
+        <div id="screen-result" class="screen">
+            <h2>結果発表</h2>
+            <p id="result-theme"></p>
+            <p id="result-insider"></p>
+            <p id="result-winner"></p>
+            <button id="play-again-btn">もう一度遊ぶ</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
