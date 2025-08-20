@@ -7,220 +7,108 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#3a98db"/>
     <style>
-        /* --- General Styles --- */
         :root {
-            --primary-color: #3a98db;
-            --secondary-color: #2ecc71;
-            --warning-color: #f39c12;
-            --danger-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
+            --primary-color: #3a98db; --secondary-color: #2ecc71; --warning-color: #f39c12;
+            --danger-color: #e74c3c; --light-color: #ecf0f1; --dark-color: #2c3e50;
             --font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
         }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: var(--font-family);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            padding: 1rem;
+            font-family: var(--font-family); display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; background-color: var(--light-color); color: var(--dark-color); padding: 1rem;
         }
         #app-container {
-            width: 100%;
-            max-width: 600px;
-            background: white;
-            padding: 1.5rem 2rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            text-align: center;
+            width: 100%; max-width: 600px; background: white; padding: 1.5rem 2rem;
+            border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center;
         }
-        .hidden {
-            display: none !important;
-        }
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-        h2 {
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
+        .hidden { display: none !important; }
+        h1 { color: var(--primary-color); margin-bottom: 0.5rem; }
+        h2 { margin-bottom: 1rem; color: var(--dark-color); }
         button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: background-color 0.3s, transform 0.1s;
-            margin: 0.25rem;
+            background-color: var(--primary-color); color: white; border: none; padding: 0.8rem 1.5rem;
+            border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: bold;
+            transition: background-color 0.3s, transform 0.1s; margin: 0.25rem;
         }
-        button:hover {
-            opacity: 0.9;
-        }
-        button:active {
-            transform: scale(0.98);
-        }
-        button:disabled {
-            background-color: #bdc3c7;
-            cursor: not-allowed;
-        }
-        #start-original-btn {
-            background-color: var(--warning-color);
-        }
+        button:hover { opacity: 0.9; }
+        button:active { transform: scale(0.98); }
+        button:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+        
         /* --- Setup Screen --- */
-        .input-group {
-            margin: 1.5rem 0;
+        .input-group, .settings-group { margin: 1.5rem 0; }
+        .input-group label, .settings-group label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
+        .input-group input, .settings-group select {
+            padding: 0.7rem; border-radius: 5px; border: 1px solid #ccc;
+            width: 90%; max-width: 300px; text-align: center;
         }
-        .input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-        }
-        .input-group input {
-            padding: 0.7rem;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 90%;
-            max-width: 300px;
-            text-align: center;
-        }
-        #player-names-container {
-            margin-top: 1rem;
-            display: grid;
-            gap: 0.5rem;
-        }
-        .start-buttons {
-            margin-top: 1.5rem;
-        }
+        .settings-container { display: flex; justify-content: center; gap: 1rem; }
+        #player-names-container { margin-top: 1rem; display: grid; gap: 0.5rem; }
+        .start-buttons { margin-top: 1.5rem; }
+        #start-original-btn { background-color: var(--warning-color); }
+
         /* --- Game Screen --- */
         #game-info {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 1rem;
-            font-weight: bold;
-            background: #f9f9f9;
-            padding: 0.8rem;
-            border-radius: 8px;
+            display: flex; justify-content: space-around; margin-bottom: 1rem; font-weight: bold;
+            background: #f9f9f9; padding: 0.8rem; border-radius: 8px;
         }
-        #theme-container {
-            position: relative;
-        }
+        #theme-container { position: relative; }
         #theme-display {
-            background: var(--light-color);
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1.5rem 0;
-            font-size: 1.2rem;
-            font-weight: bold;
-            line-height: 1.5;
+            background: var(--light-color); padding: 1rem; border-radius: 8px; margin: 1.5rem 0;
+            font-size: 1.2rem; font-weight: bold; line-height: 1.5;
         }
         #change-theme-btn {
-            font-size: 0.8rem;
-            padding: 0.4rem 0.8rem;
-            background-color: var(--warning-color);
-            position: absolute;
-            top: calc(100% + 0.5rem);
-            left: 50%;
-            transform: translateX(-50%);
+            font-size: 0.8rem; padding: 0.4rem 0.8rem; background-color: var(--warning-color);
+            position: absolute; top: calc(100% + 0.5rem); left: 50%; transform: translateX(-50%);
         }
-        #field-container {
-            margin-top: 3.5rem; /* Space for the change theme button */
-            margin-bottom: 1.5rem;
-        }
+        #field-container { margin-top: 3.5rem; margin-bottom: 1.5rem; }
         #field {
-            min-height: 100px;
-            border: 2px dashed #ccc;
-            border-radius: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-            gap: 0.5rem;
+            min-height: 100px; border: 2px dashed #ccc; border-radius: 10px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; padding: 1rem; gap: 0.5rem;
         }
         .card {
-            width: 60px;
-            height: 90px;
-            color: white;
-            font-size: 1.8rem;
-            font-weight: bold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: transform 0.3s, background-color 0.3s;
+            width: 60px; height: 90px; color: white; font-size: 1.8rem; font-weight: bold;
+            display: flex; justify-content: center; align-items: center; border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: all 0.3s;
         }
-        .field-card {
-            background: var(--dark-color);
-        }
-        .error-card {
-            background: var(--danger-color);
-            animation: shake 0.5s;
-        }
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          25% { transform: translateX(-8px); }
-          75% { transform: translateX(8px); }
-        }
-        #players-area {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
+        .field-card { background: var(--dark-color); }
+        .error-card { background: var(--danger-color); animation: shake 0.5s; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+        
+        #players-area { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; }
         .player-pod {
-            background: #f9f9f9;
-            padding: 1rem;
-            border-radius: 8px;
-            border: 1px solid #eee;
+            background: #f9f9f9; padding: 1rem; border-radius: 8px; border: 2px solid #eee;
+            transition: all 0.3s;
         }
-        .player-pod h3 {
-            margin-bottom: 0.8rem;
-        }
+        .player-pod h3 { margin-bottom: 0.8rem; }
         .player-pod .card-display {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            min-height: 50px;
-            margin-bottom: 0.8rem;
+            font-size: 2.5rem; font-weight: bold; color: var(--primary-color);
+            min-height: 50px; margin-bottom: 0.8rem; cursor: pointer;
+            perspective: 1000px;
         }
-        .player-pod button {
-            width: 100%;
-            padding: 0.6rem;
-            font-size: 0.9rem;
+        .card-inner {
+            position: relative; width: 100%; height: 100%; transition: transform 0.6s;
+            transform-style: preserve-3d;
         }
-        .player-pod .play-btn {
-            background-color: var(--secondary-color);
+        .card-display.flipped .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; justify-content: center; align-items: center;
         }
-         .player-pod .play-btn:hover {
-            background-color: #27ae60;
-        }
-        #game-controls {
-            margin-top: 2rem;
-        }
+        .card-back { transform: rotateY(180deg); }
+        .player-pod button { width: 100%; padding: 0.6rem; font-size: 0.9rem; }
+        .player-pod .play-btn { background-color: var(--secondary-color); }
+        #game-controls { margin-top: 2rem; }
+
         /* --- Result Screen --- */
-        #result-message {
-            font-size: 2rem;
+        #result-message { font-size: 2rem; }
+        #result-details { margin: 1rem 0; font-size: 1.1rem; line-height: 1.6; }
+        #final-cards-container {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 1.5rem;
         }
-        #result-details {
-            margin: 1rem 0;
-            font-size: 1.1rem;
-            line-height: 1.6;
+        .final-card {
+            background: #f0f0f0; padding: 0.5rem; border-radius: 8px; text-align: center;
         }
-        #restart-game-btn {
-            background-color: var(--secondary-color);
-        }
+        .final-card .name { font-size: 0.9rem; font-weight: bold; }
+        .final-card .card { margin: 0.5rem auto 0; background-color: var(--dark-color); }
     </style>
 </head>
 <body>
@@ -235,6 +123,29 @@
                 <input type="number" id="player-count" min="2" max="10" value="3">
             </div>
             <div id="player-names-container"></div>
+             <!-- Difficulty Settings -->
+            <div class="settings-container">
+                <div class="settings-group">
+                    <label for="lives-setting">ライフ数</label>
+                    <select id="lives-setting">
+                        <option value="auto" selected>人数と同じ (標準)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="settings-group">
+                    <label for="rounds-setting">ラウンド数</label>
+                    <select id="rounds-setting">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3" selected>3 (標準)</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
             <div class="start-buttons">
                 <button id="start-game-btn">ゲーム開始</button>
                 <button id="start-original-btn">オリジナル問題で開始</button>
@@ -260,7 +171,7 @@
                 <div id="players-area"></div>
             </div>
             <div id="game-controls">
-                <button id="play-phase-btn">表現タイム終了！カードを出す</button>
+                <button id="play-phase-btn">表現タイム終了！</button>
             </div>
         </section>
 
@@ -268,43 +179,16 @@
         <section id="result-screen" class="hidden">
             <h2 id="result-message"></h2>
             <p id="result-details"></p>
+            <div id="final-cards-container"></div>
             <button id="restart-game-btn">ホームに戻る</button>
         </section>
     </div>
 
-    <!-- Game Themes List -->
+    <!-- Game Themes List (200) -->
     <script>
         const themes = [
-            // 食べ物・飲み物編
-            "人気のある寿司ネタ", "好きなラーメンの味", "焼肉で絶対食べたい部位", "コンビニおにぎりの定番具材", "好きな給食のメニュー", "お祭りの屋台で食べたいもの", "朝食に食べたいもの", "好きなポテトチップスの味", "カフェで頼みたいドリンク", "カレーの辛さレベル", "好きな鍋料理", "冷蔵庫に常備しておきたいもの", "最強のカップ麺", "好きなパンの種類", "好きなパスタソース", "目玉焼きにかける調味料", "好きな味噌汁の具", "お弁当に入っていると嬉しいもの", "好きな中華料理", "食べ放題で元が取れる度", "好きなフルーツ", "きのこの山 vs たけのこの里、どっち派？", "好きなチーズの種類", "辛いものの耐性レベル",
-            // 動物・自然編
-            "最強だと思う動物", "ペットとして飼ってみたい動物", "かわいいと思う海の生き物", "かっこいいと思う恐竜", "遭遇したら怖い虫", "動物園で人気の動物", "美しいと思う花", "行ってみたい日本の絶景", "好きな天気", "癒される自然の音", "サバイバル能力が高そうな動物", "水族館の人気者",
-            // ポップカルチャー・エンタメ編
-            "国民的アニメといえば", "カラオケで盛り上がる曲", "人生で一番泣いた映画", "好きなジブリ作品", "一度は言ってみたいアニメのセリフ", "好きなゲームのジャンル", "好きなYouTubeチャンネル", "好きなディズニーキャラクター", "最強のマーベルヒーロー", "繰り返し見ているドラマ", "好きな芸人", "夏に聴きたい曲", "主人公にしたい俳優・女優",
-            // 日常生活・ライフスタイル編
-            "無人島に一つだけ持っていくもの", "休日の理想的な過ごし方", "コンビニでつい買ってしまうもの", "得意な家事", "あったら便利なドラえもんのひみつ道具", "タイムマシンで行ってみたい時代", "1億円あったらやりたいこと", "好きな季節", "寝る前にやること", "ストレス解消法", "住んでみたい都道府県", "スマホでよく使うアプリ", "得意料理", "電車で座りたい席", "エレベーターで何階までなら階段を使う？", "好きなコンビニ", "スーパーで最初にどのコーナーに行く？", "スマホの充電が何%になったら不安？", "傘をよくなくす度合い", "好きな弁当のおかず", "自動販売機でよく買う飲み物", "道端で1000円拾ったらどうする？", "好きなフォント",
-            // 抽象・感情編
-            "幸せを感じる瞬間", "「青春」と聞いて思い浮かぶこと", "ちょっとした贅沢といえば", "大人になったなと感じる瞬間", "友達にしたい人の特徴", "かっこいいと思う生き方", "大切にしている言葉", "思わず笑ってしまうこと", "理想のリーダー像", "「エモい」と感じるもの", "人生で大事なもの", "安心する場所", "納得のいかないこと",
-            // 空想・SF編
-            "あったら嬉しい超能力", "なってみたいファンタジー世界の職業", "仲間になってほしいRPGのキャラクター", "使ってみたい魔法", "乗ってみたい架空の乗り物", "戦ってみたいラスボス", "住んでみたいゲームの世界", "現実世界にあってほしいアイテム", "宇宙人に会ったら最初に聞きたいこと", "ゾンビの世界で役立つスキル", "転生したらなりたいもの", "支配したい属性（火、水、風など）",
-            // 学校・仕事編
-            "得意だった教科", "なりたかった職業", "好きな学校行事", "あったら嬉しい校則", "理想の上司・先輩", "給料日に食べたいもの", "仕事でやりがいを感じる瞬間", "学生時代に戻ってやり直したいこと", "やってみたいアルバイト", "苦手だった部活動", "こんな会社は嫌だ", "休憩時間によくすること",
-            // おもしろ・おバカ系編
-            "地味に痛いこと", "絶対に友達になれないタイプ", "子供の頃の恥ずかしい勘違い", "自分しか知らない謎ルール", "「神様」と聞いて思い浮かぶ見た目", "明日世界が終わるなら最後に食べたいもの", "最強の調味料", "一番ダサいと思うポーズ", "無駄にかっこいい言葉", "遅刻した時の言い訳", "クラスに一人はいた変なやつ", "人に言えないちょっとした自慢", "これだけは許せない食べ方",
-            // もしも…？編
-            "もし一日だけ透明人間になれたら何をする？", "もし魔法が一つだけ使えるなら何を選ぶ？", "もし過去に戻れるならいつに戻りたい？", "もし未来に行けるなら何年後に行きたい？", "もし動物と話せたらどの動物と話したい？", "もし空を飛べたらどこに行きたい？", "もし総理大臣になったら最初に何をする？", "もし不老不死になったらどうする？", "もし100万円を今日中に使い切らないといけなかったら？", "もし歴史上の人物に会えるなら誰に会いたい？", "もし無人島に3人だけ連れて行けるなら誰？", "もしどんな能力でも一つ身につけられるなら？",
-            // 個人の好み・価値観編
-            "好きな四字熟語", "心地よいと感じる音", "好きな季節のイベント", "好きな文房具", "行ってみたい海外の国", "好きな香りは？", "部屋に飾りたいアート", "好きな映画のジャンル", "尊敬する人の特徴", "好きな曜日は？", "理想の休日の朝の過ごし方", "好きな靴の種類", "好きなアイスクリームのフレーバー",
-            // スキル・能力編
-            "今一番欲しいスキル", "人に自慢できる特技", "料理の腕前", "スポーツの得意度", "楽器の演奏スキル", "絵の上手さ", "方向感覚の良さ", "早起きの得意度", "コミュニケーション能力の高さ", "PCスキルのレベル", "記憶力の良さ",
-            // もし自分が〇〇なら編
-            "もし自分が先生ならどんな先生？", "もし自分が店長ならどんな店にしたい？", "もし自分が犬ならどんな犬種？", "もし自分が寿司ネタなら何？", "もし自分が文房具なら何？", "もし自分が色なら何色？", "もし自分が家電なら何？", "もし自分がアプリなら何のアプリ？", "もし自分が天気なら？", "もし自分が歴史上の人物なら誰？",
-            // ちょっと変わったお題編
-            "自分の「ポンコツ」度", "心の中の「おじさん」度", "宇宙人が攻めてきた時の自分の役割", "自分の前世はこれだと思う", "自分を野菜に例えると？", "リアクションの大きさ", "秘密主義のレベル", "インドア派かアウトドア派か", "自分の人生の波乱万丈度", "収集癖のレベル", "忘れ物の多さ",
-            // 人間関係編
-            "待ち合わせに何分前から行く？", "友達との理想的な連絡頻度", "許せる嘘のレベル", "贈り物を選ぶセンス", "パーティーでの盛り上げ役度", "相談に乗るのがうまい度", "怒りの沸点の低さ", "寂しがりや度", "サプライズは好き？嫌い？", "褒め上手度",
-            // その他
-            "好きな数字", "好きなボードゲーム", "家の中で一番好きな場所", "自分の名前の気に入っている度", "ファッションへのこだわり度", "好きな香りの系統（フローラル、柑橘系など）", "収集しているもの", "人生で一番の幸運", "このゲームの面白さ"
+            // (Previous 100 themes)
+            "人気のある寿司ネタ", "好きなラーメンの味", "焼肉で絶対食べたい部位", "コンビニおにぎりの定番具材", "好きな給食のメニュー", "お祭りの屋台で食べたいもの", "朝食に食べたいもの", "好きなポテトチップスの味", "カフェで頼みたいドリンク", "カレーの辛さレベル", "好きな鍋料理", "冷蔵庫に常備しておきたいもの", "最強のカップ麺", "好きなパンの種類", "好きなパスタソース", "目玉焼きにかける調味料", "好きな味噌汁の具", "お弁当に入っていると嬉しいもの", "好きな中華料理", "食べ放題で元が取れる度", "好きなフルーツ", "きのこの山 vs たけのこの里、どっち派？", "好きなチーズの種類", "辛いものの耐性レベル", "最強だと思う動物", "ペットとして飼ってみたい動物", "かわいいと思う海の生き物", "かっこいいと思う恐竜", "遭遇したら怖い虫", "動物園で人気の動物", "美しいと思う花", "行ってみたい日本の絶景", "好きな天気", "癒される自然の音", "サバイバル能力が高そうな動物", "水族館の人気者", "国民的アニメといえば", "カラオケで盛り上がる曲", "人生で一番泣いた映画", "好きなジブリ作品", "一度は言ってみたいアニメのセリフ", "好きなゲームのジャンル", "好きなYouTubeチャンネル", "好きなディズニーキャラクター", "最強のマーベルヒーロー", "繰り返し見ているドラマ", "好きな芸人", "夏に聴きたい曲", "主人公にしたい俳優・女優", "無人島に一つだけ持っていくもの", "休日の理想的な過ごし方", "コンビニでつい買ってしまうもの", "得意な家事", "あったら便利なドラえもんのひみつ道具", "タイムマシンで行ってみたい時代", "1億円あったらやりたいこと", "好きな季節", "寝る前にやること", "ストレス解消法", "住んでみたい都道府県", "スマホでよく使うアプリ", "得意料理", "電車で座りたい席", "エレベーターで何階までなら階段を使う？", "好きなコンビニ", "スーパーで最初にどのコーナーに行く？", "スマホの充電が何%になったら不安？", "傘をよくなくす度合い", "好きな弁当のおかず", "自動販売機でよく買う飲み物", "道端で1000円拾ったらどうする？", "好きなフォント", "幸せを感じる瞬間", "「青春」と聞いて思い浮かぶこと", "ちょっとした贅沢といえば", "大人になったなと感じる瞬間", "友達にしたい人の特徴", "かっこいいと思う生き方", "大切にしている言葉", "思わず笑ってしまうこと", "理想のリーダー像", "「エモい」と感じるもの", "人生で大事なもの", "安心する場所", "納得のいかないこと", "あったら嬉しい超能力", "なってみたいファンタジー世界の職業", "仲間になってほしいRPGのキャラクター", "使ってみたい魔法", "乗ってみたい架空の乗り物", "戦ってみたいラスボス", "住んでみたいゲームの世界", "現実世界にあってほしいアイテム", "宇宙人に会ったら最初に聞きたいこと", "ゾンビの世界で役立つスキル", "転生したらなりたいもの", "支配したい属性（火、水、風など）", "得意だった教科", "なりたかった職業", "好きな学校行事", "あったら嬉しい校則", "理想の上司・先輩", "給料日に食べたいもの", "仕事でやりがいを感じる瞬間", "学生時代に戻ってやり直したいこと", "やってみたいアルバイト", "苦手だった部活動", "こんな会社は嫌だ", "休憩時間によくすること", "地味に痛いこと", "絶対に友達になれないタイプ", "子供の頃の恥ずかしい勘違い", "自分しか知らない謎ルール", "「神様」と聞いて思い浮かぶ見た目", "明日世界が終わるなら最後に食べたいもの", "最強の調味料", "一番ダサいと思うポーズ", "無駄にかっこいい言葉", "遅刻した時の言い訳", "クラスに一人はいた変なやつ", "人に言えないちょっとした自慢", "これだけは許せない食べ方", "もし一日だけ透明人間になれたら何をする？", "もし魔法が一つだけ使えるなら何を選ぶ？", "もし過去に戻れるならいつに戻りたい？", "もし未来に行けるなら何年後に行きたい？", "もし動物と話せたらどの動物と話したい？", "もし空を飛べたらどこに行きたい？", "もし総理大臣になったら最初に何をする？", "もし不老不死になったらどうする？", "もし100万円を今日中に使い切らないといけなかったら？", "もし歴史上の人物に会えるなら誰に会いたい？", "もし無人島に3人だけ連れて行けるなら誰？", "もしどんな能力でも一つ身につけられるなら？", "好きな四字熟語", "心地よいと感じる音", "好きな季節のイベント", "好きな文房具", "行ってみたい海外の国", "好きな香りは？", "部屋に飾りたいアート", "好きな映画のジャンル", "尊敬する人の特徴", "好きな曜日は？", "理想の休日の朝の過ごし方", "好きな靴の種類", "好きなアイスクリームのフレーバー", "今一番欲しいスキル", "人に自慢できる特技", "料理の腕前", "スポーツの得意度", "楽器の演奏スキル", "絵の上手さ", "方向感覚の良さ", "早起きの得意度", "コミュニケーション能力の高さ", "PCスキルのレベル", "記憶力の良さ", "もし自分が先生ならどんな先生？", "もし自分が店長ならどんな店にしたい？", "もし自分が犬ならどんな犬種？", "もし自分が寿司ネタなら何？", "もし自分が文房具なら何？", "もし自分が色なら何色？", "もし自分が家電なら何？", "もし自分がアプリなら何のアプリ？", "もし自分が天気なら？", "もし自分が歴史上の人物なら誰？", "自分の「ポンコツ」度", "心の中の「おじさん」度", "宇宙人が攻めてきた時の自分の役割", "自分の前世はこれだと思う", "自分を野菜に例えると？", "リアクションの大きさ", "秘密主義のレベル", "インドア派かアウトドア派か", "自分の人生の波乱万丈度", "収集癖のレベル", "忘れ物の多さ", "待ち合わせに何分前から行く？", "友達との理想的な連絡頻度", "許せる嘘のレベル", "贈り物を選ぶセンス", "パーティーでの盛り上げ役度", "相談に乗るのがうまい度", "怒りの沸点の低さ", "寂しがりや度", "サプライズは好き？嫌い？", "褒め上手度", "好きな数字", "好きなボードゲーム", "家の中で一番好きな場所", "自分の名前の気に入っている度", "ファッションへのこだわり度", "好きな香りの系統（フローラル、柑橘系など）", "収集しているもの", "人生で一番の幸運", "このゲームの面白さ"
         ];
     </script>
     
@@ -315,12 +199,12 @@
             const setupScreen = document.getElementById('setup-screen');
             const gameScreen = document.getElementById('game-screen');
             const resultScreen = document.getElementById('result-screen');
-            
             const playerCountInput = document.getElementById('player-count');
             const playerNamesContainer = document.getElementById('player-names-container');
+            const livesSetting = document.getElementById('lives-setting');
+            const roundsSetting = document.getElementById('rounds-setting');
             const startGameBtn = document.getElementById('start-game-btn');
             const startOriginalBtn = document.getElementById('start-original-btn');
-
             const livesDisplay = document.getElementById('lives-display');
             const roundDisplay = document.getElementById('round-display');
             const themeDisplay = document.getElementById('theme-display');
@@ -328,33 +212,23 @@
             const fieldDisplay = document.getElementById('field');
             const playersArea = document.getElementById('players-area');
             const playPhaseBtn = document.getElementById('play-phase-btn');
-
             const resultMessage = document.getElementById('result-message');
             const resultDetails = document.getElementById('result-details');
+            const finalCardsContainer = document.getElementById('final-cards-container');
             const restartGameBtn = document.getElementById('restart-game-btn');
 
-            // --- Game State ---
             let state = {};
             let usedThemes = [];
 
             function resetState() {
                 state = {
-                    players: [],
-                    deck: [],
-                    fieldCards: [],
-                    lives: 0,
-                    round: 0,
-                    maxRounds: 3,
-                    isOriginalMode: false,
-                    gamePhase: 'view', // 'view' or 'play'
-                    playedPlayerCount: 0,
-                    gameActive: false,
-                    currentTheme: '',
+                    players: [], deck: [], fieldCards: [], lives: 0, round: 0, maxRounds: 3,
+                    isOriginalMode: false, gamePhase: 'view', playedPlayerCount: 0,
+                    gameActive: false, currentTheme: ''
                 };
                 usedThemes = [];
             }
 
-            // --- Event Listeners ---
             playerCountInput.addEventListener('input', setupPlayerNameInputs);
             startGameBtn.addEventListener('click', () => startGame(false));
             startOriginalBtn.addEventListener('click', () => startGame(true));
@@ -362,16 +236,9 @@
             restartGameBtn.addEventListener('click', backToHome);
             changeThemeBtn.addEventListener('click', changeTheme);
 
-            // --- Functions ---
             function savePlayerInfo() {
                 const playerCount = playerCountInput.value;
-                const playerNames = [];
-                for (let i = 0; i < playerCount; i++) {
-                    const nameInput = document.getElementById(`player-name-${i}`);
-                    if (nameInput) {
-                        playerNames.push(nameInput.value);
-                    }
-                }
+                const playerNames = Array.from(document.querySelectorAll('#player-names-container input')).map(input => input.value);
                 localStorage.setItem('itoPlayerCount', playerCount);
                 localStorage.setItem('itoPlayerNames', JSON.stringify(playerNames));
             }
@@ -379,99 +246,72 @@
             function loadPlayerInfo() {
                 const playerCount = localStorage.getItem('itoPlayerCount');
                 const playerNames = JSON.parse(localStorage.getItem('itoPlayerNames'));
-
                 if (playerCount) {
                     playerCountInput.value = playerCount;
-                }
-                setupPlayerNameInputs(); // Create inputs first
-
-                if (playerNames) {
-                    for (let i = 0; i < playerNames.length; i++) {
-                        const nameInput = document.getElementById(`player-name-${i}`);
-                        if (nameInput) {
-                            nameInput.value = playerNames[i];
-                        }
+                    setupPlayerNameInputs();
+                    if (playerNames) {
+                        const nameInputs = document.querySelectorAll('#player-names-container input');
+                        nameInputs.forEach((input, index) => input.value = playerNames[index] || '');
                     }
                 }
             }
-
+            
             function setupPlayerNameInputs() {
                 const count = parseInt(playerCountInput.value, 10) || 0;
                 playerNamesContainer.innerHTML = '';
+                const existingNames = JSON.parse(localStorage.getItem('itoPlayerNames')) || [];
                 for (let i = 0; i < count; i++) {
                     const input = document.createElement('input');
                     input.type = 'text';
                     input.placeholder = `プレイヤー ${i + 1} の名前`;
-                    input.id = `player-name-${i}`;
+                    input.value = existingNames[i] || '';
                     playerNamesContainer.appendChild(input);
                 }
             }
 
             function startGame(isOriginal = false) {
-                savePlayerInfo();
-                resetState();
-                state.isOriginalMode = isOriginal;
-
-                const playerCount = parseInt(playerCountInput.value, 10);
-                if (playerCount < 2) {
-                    alert('2人以上でプレイしてください。');
+                const playerInputs = Array.from(document.querySelectorAll('#player-names-container input'));
+                const playerNames = playerInputs.map(input => input.value.trim()).filter(name => name !== "");
+                const uniqueNames = new Set(playerNames);
+                if (uniqueNames.size !== playerNames.length) {
+                    alert('同じ名前のプレイヤーがいます。違う名前にしてください。');
                     return;
                 }
 
-                const playerNames = JSON.parse(localStorage.getItem('itoPlayerNames')) || [];
+                savePlayerInfo();
+                resetState();
+                state.isOriginalMode = isOriginal;
+                const playerCount = parseInt(playerCountInput.value, 10);
+                if (playerCount < 2) { alert('2人以上でプレイしてください。'); return; }
+
+                const storedNames = JSON.parse(localStorage.getItem('itoPlayerNames')) || [];
                 for (let i = 0; i < playerCount; i++) {
-                    state.players.push({
-                        id: i,
-                        name: playerNames[i] || `プレイヤー ${i + 1}`,
-                        card: null,
-                        hasPlayed: false,
-                    });
+                    state.players.push({ id: i, name: storedNames[i] || `プレイヤー ${i + 1}`, card: null, hasPlayed: false });
                 }
 
-                state.lives = state.players.length;
-                state.gameActive = true;
+                state.maxRounds = parseInt(roundsSetting.value, 10);
+                state.lives = livesSetting.value === 'auto' ? state.players.length : parseInt(livesSetting.value, 10);
                 
+                state.gameActive = true;
                 startNewRound();
-
                 setupScreen.classList.add('hidden');
                 resultScreen.classList.add('hidden');
                 gameScreen.classList.remove('hidden');
             }
-            
-            function getNewTheme() {
-                let availableThemes = themes.filter(t => !usedThemes.includes(t));
-                if (availableThemes.length === 0) {
-                    usedThemes = []; // Reset if all themes are used
-                    availableThemes = themes;
-                }
-                const newTheme = availableThemes[Math.floor(Math.random() * availableThemes.length)];
-                usedThemes.push(newTheme);
-                state.currentTheme = newTheme;
-            }
 
             function startNewRound() {
                 state.round++;
-                if (state.round > state.maxRounds && !state.isOriginalMode) {
-                    endGame(true);
-                    return;
-                }
-
+                if (state.round > state.maxRounds && !state.isOriginalMode) { endGame(true); return; }
                 state.fieldCards = [];
                 state.playedPlayerCount = 0;
                 state.gamePhase = 'view';
-                
                 state.deck = Array.from({ length: 100 }, (_, i) => i + 1);
                 shuffle(state.deck);
-
                 state.players.forEach(player => {
                     player.card = state.deck.pop();
                     player.hasPlayed = false;
                 });
-                
-                if (!state.isOriginalMode) {
-                    getNewTheme();
-                }
-
+                if (!state.isOriginalMode) getNewTheme();
                 updateUI();
             }
 
@@ -480,11 +320,16 @@
                 updateUI();
             }
 
+            function getNewTheme() {
+                let availableThemes = themes.filter(t => !usedThemes.includes(t));
+                if (availableThemes.length === 0) { usedThemes = []; availableThemes = themes; }
+                const newTheme = availableThemes[Math.floor(Math.random() * availableThemes.length)];
+                usedThemes.push(newTheme);
+                state.currentTheme = newTheme;
+            }
+
             function changeTheme() {
-                if (state.lives <= 1) {
-                    alert('ライフが1以下のため、お題は変更できません。');
-                    return;
-                }
+                if (state.lives <= 1) { alert('ライフが1以下のため、お題は変更できません。'); return; }
                 if (confirm('ライフを1つ消費してお題を変更しますか？')) {
                     state.lives--;
                     getNewTheme();
@@ -492,48 +337,46 @@
                 }
             }
 
+            function viewCard(playerId) {
+                if (state.gamePhase !== 'view') return;
+                const cardDisplay = document.querySelector(`.player-pod[data-id="${playerId}"] .card-display`);
+                cardDisplay.classList.toggle('flipped');
+            }
+
             function playCard(playerId) {
-                if (state.gamePhase !== 'play') return;
                 const player = state.players.find(p => p.id === playerId);
                 if (player.hasPlayed) return;
 
                 player.hasPlayed = true;
                 state.playedPlayerCount++;
                 const number = player.card;
-                const cardDiv = document.createElement('div');
-                cardDiv.className = 'card field-card';
-                cardDiv.textContent = number;
 
                 const lastCard = state.fieldCards.length > 0 ? state.fieldCards[state.fieldCards.length - 1] : 0;
                 if (number < lastCard) {
                     state.lives--;
-                    cardDiv.classList.add('error-card');
+                    // Animate life loss
                     const livesElement = document.getElementById('lives-display');
                     livesElement.style.transform = 'scale(1.5)';
                     setTimeout(() => livesElement.style.transform = 'scale(1)', 200);
-
+                    
                     if (state.lives <= 0) {
-                        endGame(false);
+                        updateUI(); // Update to show the failed card
+                        setTimeout(() => endGame(false), 500); // Delay to show the card
                         return;
                     }
                 }
                 
                 state.fieldCards.push(number);
-                state.fieldCards.sort((a, b) => a - b);
+                // DO NOT SORT HERE - THIS WAS THE BUG
+                
                 updateUI();
 
                 if (state.playedPlayerCount === state.players.length) {
-                    if (state.isOriginalMode) {
-                        setTimeout(() => endGame(true, true), 1500);
-                    } else {
-                        setTimeout(() => {
-                            alert(`ラウンド ${state.round} クリア！`);
-                            startNewRound();
-                        }, 1500);
-                    }
+                    if (state.isOriginalMode) { setTimeout(() => endGame(true, true), 1500); } 
+                    else { setTimeout(() => { alert(`ラウンド ${state.round} クリア！`); startNewRound(); }, 1500); }
                 }
             }
-            
+
             function updateUI() {
                 if (!state.gameActive) return;
                 livesDisplay.textContent = state.lives;
@@ -547,11 +390,12 @@
                     changeThemeBtn.classList.remove('hidden');
                     changeThemeBtn.disabled = state.gamePhase === 'play';
                 }
-                
+
                 fieldDisplay.innerHTML = '';
-                state.fieldCards.forEach(cardNum => {
+                state.fieldCards.forEach((cardNum, index) => {
                     const cardDiv = document.createElement('div');
-                    cardDiv.className = 'card field-card';
+                    const isError = index > 0 && cardNum < state.fieldCards[index - 1];
+                    cardDiv.className = `card field-card ${isError ? 'error-card' : ''}`;
                     cardDiv.textContent = cardNum;
                     fieldDisplay.appendChild(cardDiv);
                 });
@@ -561,64 +405,54 @@
                     const pod = document.createElement('div');
                     pod.className = 'player-pod';
                     pod.dataset.id = player.id;
+                    
                     const canPlay = state.gamePhase === 'play' && !player.hasPlayed;
+                    
                     pod.innerHTML = `
                         <h3>${player.name}</h3>
-                        <div class="card-display">?</div>
-                        <button class="view-btn" ${state.gamePhase === 'play' ? 'disabled' : ''}>カードを見る</button>
-                        <button class="play-btn" ${!canPlay ? 'disabled' : ''}>このカードを出す</button>
+                        <div class="card-display" data-id="${player.id}">
+                            <div class="card-inner">
+                                <div class="card-front">?</div>
+                                <div class="card-back">${player.card}</div>
+                            </div>
+                        </div>
+                        <button class="play-btn" data-id="${player.id}" ${!canPlay ? 'disabled' : ''}>このカードを出す</button>
                     `;
                     playersArea.appendChild(pod);
                 });
 
-                document.querySelectorAll('.view-btn').forEach(btn => {
-                    const id = parseInt(btn.closest('.player-pod').dataset.id, 10);
-                    btn.addEventListener('click', () => viewCard(id));
-                });
-                document.querySelectorAll('.play-btn').forEach(btn => {
-                    const id = parseInt(btn.closest('.player-pod').dataset.id, 10);
-                    btn.addEventListener('click', () => playCard(id));
-                });
+                document.querySelectorAll('.card-display').forEach(disp => disp.addEventListener('click', (e) => viewCard(parseInt(e.currentTarget.dataset.id))));
+                document.querySelectorAll('.play-btn').forEach(btn => btn.addEventListener('click', (e) => playCard(parseInt(e.currentTarget.dataset.id))));
                 
                 playPhaseBtn.classList.toggle('hidden', state.gamePhase === 'play');
-            }
-            
-            function viewCard(playerId) {
-                const player = state.players.find(p => p.id === playerId);
-                const cardDisplay = document.querySelector(`.player-pod[data-id="${playerId}"] .card-display`);
-                const viewBtn = document.querySelector(`.player-pod[data-id="${playerId}"] .view-btn`);
-                if (cardDisplay.textContent === '?') {
-                    cardDisplay.textContent = player.card;
-                    viewBtn.textContent = 'カードを隠す';
-                } else {
-                    cardDisplay.textContent = '?';
-                    viewBtn.textContent = 'カードを見る';
-                }
+                playPhaseBtn.textContent = state.gamePhase === 'view' ? '表現タイム終了！' : 'プレイタイム！';
             }
 
             function endGame(isWin, fromOriginal = false) {
                 state.gameActive = false;
                 gameScreen.classList.add('hidden');
                 resultScreen.classList.remove('hidden');
-                const correctOrder = state.players.map(p => p.card).sort((a,b) => a - b).join(' → ');
+                const sortedPlayers = [...state.players].sort((a, b) => a.card - b.card);
+                finalCardsContainer.innerHTML = '';
+                sortedPlayers.forEach(player => {
+                    const finalCardDiv = document.createElement('div');
+                    finalCardDiv.className = 'final-card';
+                    finalCardDiv.innerHTML = `<div class="name">${player.name}</div><div class="card">${player.card}</div>`;
+                    finalCardsContainer.appendChild(finalCardDiv);
+                });
                 if (isWin) {
-                    if (fromOriginal) {
-                        resultMessage.textContent = '🎉 終了！ 🎉';
-                        resultDetails.innerHTML = `お疲れ様でした！<br>今回の数字の順番は: ${correctOrder}`;
-                    } else {
-                        resultMessage.textContent = '🎉 ゲームクリア！ 🎉';
-                        resultDetails.textContent = '素晴らしい協力でした！';
-                    }
+                    resultMessage.textContent = fromOriginal ? '🎉 終了！ 🎉' : '🎉 ゲームクリア！ 🎉';
+                    resultDetails.textContent = fromOriginal ? 'お疲れ様でした！' : '素晴らしい協力でした！';
                 } else {
                     resultMessage.textContent = '😢 ゲームオーバー 😢';
-                    resultDetails.innerHTML = `ライフが0になりました。<br>今回の正解は: ${correctOrder}`;
+                    resultDetails.textContent = 'ライフが0になりました。';
                 }
             }
 
             function backToHome() {
                 resultScreen.classList.add('hidden');
-                gameScreen.classList.add('hidden');
                 setupScreen.classList.remove('hidden');
+                loadPlayerInfo();
             }
 
             function shuffle(array) {
@@ -630,6 +464,7 @@
 
             // --- Initialization ---
             loadPlayerInfo();
+            setupPlayerNameInputs();
             shuffle(themes);
         });
     </script>
@@ -637,13 +472,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registration successful:', registration);
-                    })
-                    .catch(error => {
-                        console.log('ServiceWorker registration failed:', error);
-                    });
+                navigator.serviceWorker.register('./sw.js').then(reg => console.log('ServiceWorker registration successful:', reg)).catch(err => console.log('ServiceWorker registration failed:', err));
             });
         }
     </script>
