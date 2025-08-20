@@ -27,20 +27,23 @@ window.addEventListener('DOMContentLoaded', () => {
     const nextGameButton = document.getElementById('next-game-button');
     const hint1Button = document.getElementById('hint-1-button');
     const hint2Button = document.getElementById('hint-2-button');
+    const hint3Button = document.getElementById('hint-3-button');
     const hintDisplayArea = document.getElementById('hint-display-area');
     const hint1Text = document.getElementById('hint-1-text');
     const hint2Text = document.getElementById('hint-2-text');
+    const hint3Text = document.getElementById('hint-3-text');
 
     // --- ゲームの状態を管理する変数 ---
     let players = [];
     let currentPlayerIndex = 0;
     let gameQuestion = "", gameAnswer = "", gameKeywords = [];
-    let gameHint1 = "", gameHint2 = "";
+    let gameHint1 = "", gameHint2 = "", gameHint3 = "";
     let hintsUsed = 0;
     let timerInterval;
-    let timeRemaining = 600;
+    let timeRemaining;
     let currentQuestionPool = [];
     let isInitialGame = true;
+    let currentDifficulty = 'easy';
 
     // --- イベントリスナー ---
 
@@ -69,8 +72,8 @@ window.addEventListener('DOMContentLoaded', () => {
             isInitialGame = false;
         }
         
-        const selectedDifficulty = document.querySelector('input[name="difficulty"]:checked').value;
-        switch (selectedDifficulty) {
+        currentDifficulty = document.querySelector('input[name="difficulty"]:checked').value;
+        switch (currentDifficulty) {
             case 'easy': currentQuestionPool = easyQuestions; break;
             case 'normal': currentQuestionPool = normalQuestions; break;
             case 'hard': currentQuestionPool = hardQuestions; break;
@@ -112,7 +115,12 @@ window.addEventListener('DOMContentLoaded', () => {
         processAnswer(finalAnswer);
     });
 
-    changeQuestionButton.addEventListener('click', () => changeQuestion());
+    changeQuestionButton.addEventListener('click', () => {
+        if (confirm("本当に問題を変更しますか？\nタイマーがリセットされ、役職確認からやり直します。")) {
+            clearInterval(timerInterval);
+            startNewRound();
+        }
+    });
 
     nextGameButton.addEventListener('click', () => {
         resultPhase.classList.add('hidden');
@@ -134,6 +142,17 @@ window.addEventListener('DOMContentLoaded', () => {
             hintsUsed = 2;
             hint2Text.textContent = `ヒント②： ${gameHint2}`;
             hint2Button.disabled = true;
+            if (currentDifficulty === 'hard' || currentDifficulty === 'very-hard') {
+                hint3Button.disabled = false;
+            }
+        }
+    });
+    
+    hint3Button.addEventListener('click', () => {
+        if (confirm("ヒント③を使用しますか？\n人狼の勝利点がさらに1点増えます。")) {
+            hintsUsed = 3;
+            hint3Text.textContent = `ヒント③： ${gameHint3}`;
+            hint3Button.disabled = true;
         }
     });
 
@@ -151,16 +170,26 @@ window.addEventListener('DOMContentLoaded', () => {
         changeQuestion(true);
 
         updateScoreboard();
-        timeRemaining = 600;
+        
+        const selectedTime = document.querySelector('input[name="timer"]:checked').value;
+        timeRemaining = parseInt(selectedTime, 10);
         updateTimerDisplay();
-        finalAnswerInput.value = "";
 
+        finalAnswerInput.value = "";
         hintsUsed = 0;
         hintDisplayArea.classList.add('hidden');
         hint1Text.textContent = "";
         hint2Text.textContent = "";
+        hint3Text.textContent = "";
         hint1Button.disabled = false;
         hint2Button.disabled = true;
+        hint3Button.disabled = true;
+        
+        if (currentDifficulty === 'hard' || currentDifficulty === 'very-hard') {
+            hint3Button.style.display = 'block';
+        } else {
+            hint3Button.style.display = 'none';
+        }
 
         setupPhase.classList.add('hidden');
         resultPhase.classList.add('hidden');
@@ -183,13 +212,9 @@ window.addEventListener('DOMContentLoaded', () => {
         gameKeywords = newQuestion.keywords;
         gameHint1 = newQuestion.hint1;
         gameHint2 = newQuestion.hint2;
+        gameHint3 = newQuestion.hint3 || "";
 
         questionArea.textContent = `問題：${gameQuestion}`;
-
-        if (!isFirstTime) {
-            const werewolf = players.find(p => p.role === '人狼');
-            alert(`問題が変更されました。\n\n【人狼だけ確認】\n新しい答えは「${gameAnswer}」です。\n\n他の人は見ないでください！`);
-        }
     }
 
     function updateScoreboard() {
@@ -699,5 +724,6 @@ const veryHardQuestions = [
     { q: "認知心理学において、最初に提示された情報が後の判断に影響を及ぼす現象を何という？", a: "アンカリング効果", keywords: ["アンカリング"], hint1: "船の錨（アンカー）が語源です。", hint2: "価格交渉などで利用されます。" },
     // ... (ここに残りのすごくむずかしい問題170問が入ります)
 ];
+
 
 });
