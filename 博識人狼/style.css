@@ -1,13 +1,14 @@
 /* ページ全体の基本設定 */
 body {
     font-family: sans-serif;
-    background-color: #f0f0f0; /* 背景を少しだけ灰色に */
-    color: #333; /* 文字色を濃い灰色に */
+    background-color: #f0f0f0;
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    padding: 20px 0;
 }
 
 /* 全体を囲むコンテナ */
@@ -30,21 +31,28 @@ h2 {
     color: #6a6a6a;
     border-bottom: 2px solid #f0f0f0;
     padding-bottom: 10px;
+    margin-top: 20px;
+}
+
+h3 {
+    margin-top: 20px;
+    color: #6a6a6a;
 }
 
 /* 入力欄のスタイル */
 input[type="text"] {
     display: block;
-    width: calc(100% - 20px);
+    width: calc(100% - 22px);
     padding: 10px;
     margin: 10px auto;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px;
 }
 
 /* ボタンの共通スタイル */
 button {
-    background-color: #007bff; /* 青色 */
+    background-color: #007bff;
     color: white;
     border: none;
     padding: 12px 20px;
@@ -52,20 +60,35 @@ button {
     cursor: pointer;
     font-size: 16px;
     margin-top: 10px;
-    transition: background-color 0.2s; /* ホバー時のアニメーション */
+    transition: background-color 0.2s;
+    font-weight: bold;
 }
 
-/* ボタンにマウスを乗せたときのスタイル */
 button:hover {
-    background-color: #0056b3; /* 少し濃い青色に */
+    background-color: #0056b3;
 }
 
-/* 「プレイヤーを追加」ボタンの色を少し変える */
+button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* 個別ボタンのスタイル */
 #add-player-button {
-    background-color: #28a745; /* 緑色 */
+    background-color: #28a745;
 }
 #add-player-button:hover {
-    background-color: #218838; /* 少し濃い緑色に */
+    background-color: #218838;
+}
+
+#start-game-button {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.vote-button {
+    margin: 5px;
 }
 
 /* JavaScriptで表示/非表示を切り替えるためのクラス */
@@ -73,58 +96,46 @@ button:hover {
     display: none;
 }
 
-/* これまでのCSS... */
-
-/* ★以下をファイルの一番下に追加★ */
+/* 問題変更ボタン */
 .question-header {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px; /* ボタンとタイトルの間のスペース */
+    gap: 15px;
 }
 
 #change-question-button {
-    background-color: #6c757d; /* グレー系の色 */
+    background-color: #6c757d;
     font-size: 18px;
     padding: 8px 12px;
-    line-height: 1; /* アイコンの縦位置を中央に */
-    margin-top: 0; /* 上のボタンとのマージンをリセット */
-    flex-shrink: 0; /* ボタンが縮まないようにする */
+    line-height: 1;
+    margin-top: 20px;
+    flex-shrink: 0;
 }
 
 #change-question-button:hover {
     background-color: #5a6268;
 }
 
-.vote-button {
-    margin: 5px;
-}
-
-/* これまでのCSS... */
-
-/* ★以下をファイルの一番下に追加★ */
-#difficulty-selector {
+/* 難易度・タイマー選択 */
+#difficulty-selector, #timer-selector {
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-#difficulty-selector h3 {
+#difficulty-selector h3, #timer-selector h3 {
+    margin-top: 0;
     margin-bottom: 10px;
     font-size: 18px;
-    color: #6a6a6a;
 }
 
-#difficulty-selector label {
-    margin-right: 15px;
+#difficulty-selector label, #timer-selector label {
+    margin: 0 10px;
     font-size: 16px;
     cursor: pointer;
 }
 
-#start-game-button {
-    width: 100%;
-}
-
-
+/* ヒントセクション */
 #hint-section {
     margin: 20px 0;
     padding: 15px;
@@ -139,17 +150,14 @@ button:hover {
 }
 
 .hint-button {
-    background-color: #ffc107; /* 黄色系の色 */
-    width: 50%;
+    background-color: #ffc107;
+    flex: 1;
+    padding: 10px 5px;
+    font-size: 14px;
 }
 
 .hint-button:hover {
     background-color: #e0a800;
-}
-
-.hint-button:disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
 }
 
 #hint-display-area {
@@ -157,9 +165,12 @@ button:hover {
     background-color: #f8f9fa;
     padding: 10px;
     border-radius: 5px;
+    text-align: left;
 }
 
 #hint-display-area p {
-    margin-bottom: 5px;
+    margin: 0 0 8px 0;
 }
-
+#hint-display-area p:last-child {
+    margin-bottom: 0;
+}
