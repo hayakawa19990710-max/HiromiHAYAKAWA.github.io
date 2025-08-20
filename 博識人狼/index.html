@@ -33,6 +33,13 @@
                 <label><input type="radio" name="difficulty" value="very-hard"> すごくむずかしい</label>
             </div>
 
+            <div id="timer-selector">
+                <h3>議論時間</h3>
+                <label><input type="radio" name="timer" value="180"> 3分</label>
+                <label><input type="radio" name="timer" value="300"> 5分</label>
+                <label><input type="radio" name="timer" value="600" checked> 10分</label>
+            </div>
+
             <button id="start-game-button">ゲーム開始</button>
         </div>
 
@@ -54,21 +61,22 @@
         <div id="game-phase" class="hidden">
             <div class="question-header">
                 <h2 id="question-area">問題：ここに問題が表示されます</h2>
-                <button id="change-question-button" title="問題を変更する">🔄</button>
+                <button id="change-question-button" title="問題を変更し、役職確認からやり直す">🔄</button>
             </div>
             
             <h3>議論タイム</h3>
             <div id="timer" style="font-size: 2em; font-weight: bold; margin: 20px 0;">10:00</div>
 
-            <!-- ★ヒント機能を追加★ -->
             <div id="hint-section">
                 <div id="hint-buttons">
-                    <button id="hint-1-button" class="hint-button">ヒント①を見る</button>
-                    <button id="hint-2-button" class="hint-button" disabled>ヒント②を見る</button>
+                    <button id="hint-1-button" class="hint-button">ヒント①</button>
+                    <button id="hint-2-button" class="hint-button" disabled>ヒント②</button>
+                    <button id="hint-3-button" class="hint-button" disabled>ヒント③</button>
                 </div>
                 <div id="hint-display-area" class="hidden">
                     <p id="hint-1-text"></p>
                     <p id="hint-2-text"></p>
+                    <p id="hint-3-text"></p>
                 </div>
             </div>
             
