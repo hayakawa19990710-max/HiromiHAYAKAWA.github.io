@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wavelength</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-wrapper">
+        <header>
+            <h1>Wavelength</h1>
+            <div class="scoreboard">
+                <div id="team-a" class="team">
+                    <h2>TEAM A</h2>
+                    <p id="score-a" class="score">0</p>
+                    <div class="bonus-area">
+                        <div class="bonus-points" id="bonus-a"></div>
+                        <button id="use-bonus-a" class="use-bonus-button" disabled>⭐を使う</button>
+                    </div>
+                </div>
+                <div id="team-b" class="team">
+                    <h2>TEAM B</h2>
+                    <p id="score-b" class="score">0</p>
+                    <div class="bonus-area">
+                        <div class="bonus-points" id="bonus-b"></div>
+                        <button id="use-bonus-b" class="use-bonus-button" disabled>⭐を使う</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="game-container">
+            <div id="turn-info" class="turn-info">TEAM Aのターン</div>
+            <div class="card">
+                <div id="left-theme" class="left-theme">...</div>
+                <div id="right-theme" class="right-theme">...</div>
+            </div>
+            <div class="dial-container">
+                <div class="dial">
+                    <div id="target-cover"></div>
+                    <div id="target-2" class="target"><span>2</span></div>
+                    <div id="target-3" class="target"><span>3</span></div>
+                    <div id="target-4" class="target"><span>4</span></div>
+                    <div id="needle" class="needle"></div>
+                </div>
+            </div>
+            <div id="psychic-controls" class="phase-controls">
+                <p>正解エリアを確認しヒントを伝えてください。</p>
+                <div class="psychic-buttons">
+                    <button id="reroll-button">お題を再抽選</button>
+                    <button id="show-guesser-view">回答者に見せる</button>
+                </div>
+            </div>
+            <div id="guesser-controls" class="phase-controls" style="display: none;">
+                <div class="clue-area">
+                    <label for="clue-input">ヒント:</label>
+                    <input type="text" id="clue-input" placeholder="出題者から聞いたヒントを入力">
+                </div>
+                <label for="guess-slider">ここにダイヤルを合わせる:</label>
+                <input type="range" id="guess-slider" min="0" max="180" value="90">
+                <button id="reveal-button">答えを見る！</button>
+            </div>
+            <div id="opponent-controls" class="phase-controls" style="display: none;">
+                <p id="opponent-team-name">TEAM B</p>
+                <p>正解は、予想の右？左？</p>
+                <div class="opponent-guess">
+                    <button id="guess-left">左</button>
+                    <button id="guess-right">右</button>
+                </div>
+            </div>
+            <div id="result-controls" class="phase-controls" style="display: none;">
+                <div id="result-display" class="result"></div>
+                <div id="opponent-result-display" class="opponent-result"></div>
+                <button id="next-turn-button">次のターンへ</button>
+            </div>
+        </main>
+    </div>
+    <audio id="sound-reveal" src="sounds/reveal.mp3" preload="auto"></audio>
+    <audio id="sound-score" src="sounds/score.mp3" preload="auto"></audio>
+    <audio id="sound-win" src="sounds/win.mp3" preload="auto"></audio>
+    <script src="script.js"></script>
+</body>
+</html>

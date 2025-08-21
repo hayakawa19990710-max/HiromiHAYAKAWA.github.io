@@ -1,0 +1,280 @@
+:root {
+    --team-a-color: #007bff;
+    --team-b-color: #ff4136;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 20px 0;
+}
+
+.game-wrapper {
+    width: 95%;
+    max-width: 500px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+.scoreboard {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start; /* 上揃え */
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.team {
+    text-align: center;
+    width: 45%;
+    display: flex; /* ★修正: 内部要素の整列のためFlexboxを適用 */
+    flex-direction: column;
+    align-items: center;
+}
+
+.team h2 {
+    margin: 0 0 5px 0;
+    font-size: 1em;
+}
+
+#team-a h2 { color: var(--team-a-color); }
+#team-b h2 { color: var(--team-b-color); }
+
+.score {
+    margin: 0;
+    font-size: 2em;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+
+.score-updated {
+    transform: scale(1.5);
+    color: #f0ad4e;
+}
+
+.bonus-area {
+    margin-top: 5px;
+    min-height: 45px; /* ★修正: 固定の高さから最小の高さに変更 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.bonus-points {
+    font-size: 20px;
+    margin-bottom: 5px;
+    min-height: 25px; /* ★修正: スペースを確保 */
+}
+
+.use-bonus-button {
+    padding: 2px 8px;
+    font-size: 12px;
+    background-color: #f0ad4e;
+    color: white;
+    font-weight: normal;
+    border-radius: 4px;
+    border: none;
+}
+
+.use-bonus-button:disabled {
+    background-color: #6c757d;
+    opacity: 0.5;
+}
+
+
+.game-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.turn-info {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+.turn-info.team-a { background-color: var(--team-a-color); color: white; }
+.turn-info.team-b { background-color: var(--team-b-color); color: white; }
+
+
+.card {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin-bottom: 25px;
+}
+
+.dial-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+    perspective: 1000px;
+}
+
+.dial {
+    width: 360px;
+    height: 180px;
+    background: linear-gradient(to right, #4a90e2, #e24a4a);
+    border-radius: 180px 180px 0 0;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid #333;
+    box-shadow: inset 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.target {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transform-origin: center center;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+#target-4 { background-color: #ffc107; width: 8%; }
+#target-3 { background-color: #f0ad4e; width: 16%; }
+#target-2 { background-color: #e09a3e; width: 24%; }
+
+.target span {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 5px rgba(0,0,0,0.8);
+}
+#target-2 span { font-size: 18px; }
+
+#target-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #e9ecef;
+    z-index: 10;
+    display: none;
+}
+
+.needle {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 3px;
+    height: 180px;
+    background-color: #343a40;
+    border-top: 5px solid yellow;
+    transform-origin: bottom center;
+    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 15;
+}
+
+.phase-controls {
+    margin-top: 20px;
+}
+.psychic-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.clue-area {
+    margin-bottom: 20px;
+}
+#clue-input {
+    width: 80%;
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="range"] {
+    width: 80%;
+    margin: 10px 0;
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    background-color: #28a745;
+    transition: background-color 0.2s;
+}
+button:hover {
+    background-color: #218838;
+}
+button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+#reroll-button {
+    background-color: #ffc107;
+    color: #212529;
+}
+#reroll-button:hover {
+    background-color: #e0a800;
+}
+
+.opponent-guess button {
+    background-color: #6c757d;
+    margin: 0 10px;
+}
+.opponent-guess button:hover {
+    background-color: #5a6268;
+}
+
+#next-turn-button {
+    background-color: #007bff;
+}
+#next-turn-button:hover {
+    background-color: #0069d9;
+}
+
+.result {
+    margin-bottom: 10px;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.opponent-result {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+.opponent-result.correct {
+    color: #28a745;
+}
+.opponent-result.incorrect {
+    color: #dc3545;
+}
